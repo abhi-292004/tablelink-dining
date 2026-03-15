@@ -231,7 +231,7 @@ function OrderManagement({ orders, updateStatus }: { orders: any[]; updateStatus
                 </div>
               ))}
               <div className="border-t pt-1 flex justify-between font-semibold">
-                <span>Total</span><span className="text-primary">${order.totalAmount.toFixed(2)}</span>
+                <span>Total</span><span className="text-primary">₹{order.totalAmount}</span>
               </div>
             </div>
             <div className="flex gap-2">

@@ -44,7 +44,7 @@ export const OrderTracker = ({ tableNumber }: OrderTrackerProps) => {
           </div>
           <div className="border-t mt-2 pt-2 flex justify-between font-semibold text-sm">
             <span>Total</span>
-            <span>${order.totalAmount.toFixed(2)}</span>
+            <span>₹{order.totalAmount}</span>
           </div>
         </div>
       ))}

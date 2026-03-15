@@ -124,7 +124,7 @@ export const FloatingCartButton = ({ onClick }: FloatingCartButtonProps) => {
           <ShoppingCart className="h-5 w-5" />
           <span>{totalItems} item{totalItems > 1 ? 's' : ''}</span>
         </div>
-        <span>${totalAmount.toFixed(2)}</span>
+        <span>₹{totalAmount}</span>
       </Button>
     </motion.div>
   );

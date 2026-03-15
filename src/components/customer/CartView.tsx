@@ -121,7 +121,7 @@ export const CartView = ({ tableNumber, onBack }: CartViewProps) => {
         </div>
         <div className="flex justify-between font-display font-bold text-lg">
           <span>Total</span>
-          <span className="text-primary">${totalAmount.toFixed(2)}</span>
+          <span className="text-primary">₹{totalAmount}</span>
         </div>
         <Button
           onClick={handlePlaceOrder}
