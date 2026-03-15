@@ -86,7 +86,7 @@ export const CartView = ({ tableNumber, onBack }: CartViewProps) => {
             <div className="flex-1 min-w-0">
               <h4 className="font-semibold text-sm truncate">{menuItem.name}</h4>
               <span className="text-sm text-primary font-display font-bold">
-                ${(menuItem.price * quantity).toFixed(2)}
+                ₹{menuItem.price * quantity}
               </span>
             </div>
             <div className="flex items-center gap-1.5">
