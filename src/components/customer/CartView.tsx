@@ -117,7 +117,7 @@ export const CartView = ({ tableNumber, onBack }: CartViewProps) => {
       <div className="sticky bottom-0 border-t bg-card px-4 py-4 space-y-3">
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">Subtotal</span>
-          <span className="font-semibold">${totalAmount.toFixed(2)}</span>
+          <span className="font-semibold">₹{totalAmount}</span>
         </div>
         <div className="flex justify-between font-display font-bold text-lg">
           <span>Total</span>
