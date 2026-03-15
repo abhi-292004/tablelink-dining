@@ -142,7 +142,7 @@ function MenuManagement({ items, setItems }: { items: MenuItem[]; setItems: (ite
                 <h4 className="font-semibold text-sm truncate">{item.name}</h4>
                 <Badge variant="outline" className="text-[10px]">{CATEGORY_LABELS[item.category]}</Badge>
               </div>
-              <span className="text-sm text-primary font-bold">${item.price.toFixed(2)}</span>
+              <span className="text-sm text-primary font-bold">₹{item.price}</span>
             </div>
             <Switch checked={item.isAvailable} onCheckedChange={() => toggleAvailability(item.id)} />
             <button onClick={() => deleteItem(item.id)} className="text-destructive hover:text-destructive/80 p-1.5">
