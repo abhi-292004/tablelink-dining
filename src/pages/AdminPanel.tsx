@@ -96,7 +96,7 @@ const AdminPanel = () => {
 
 function DashboardView({ orders, totalRevenue, menuItems }: any) {
   const stats = [
-    { label: 'Total Revenue', value: `$${totalRevenue.toFixed(2)}`, icon: <DollarSign className="h-5 w-5" />, color: 'text-primary' },
+    { label: 'Total Revenue', value: `₹${totalRevenue}`, icon: <DollarSign className="h-5 w-5" />, color: 'text-primary' },
     { label: 'Total Orders', value: orders.length, icon: <ShoppingCart className="h-5 w-5" />, color: 'text-accent' },
     { label: 'Menu Items', value: menuItems.length, icon: <UtensilsCrossed className="h-5 w-5" />, color: 'text-info' },
     { label: 'Pending', value: orders.filter((o: any) => o.status === 'Pending').length, icon: <TrendingUp className="h-5 w-5" />, color: 'text-warning' },
