@@ -227,7 +227,7 @@ function OrderManagement({ orders, updateStatus }: { orders: any[]; updateStatus
               {order.items.map((item: any, idx: number) => (
                 <div key={idx} className="flex justify-between">
                   <span>{item.menuItem.name} × {item.quantity}</span>
-                  <span className="text-muted-foreground">${(item.menuItem.price * item.quantity).toFixed(2)}</span>
+                  <span className="text-muted-foreground">₹{item.menuItem.price * item.quantity}</span>
                 </div>
               ))}
               <div className="border-t pt-1 flex justify-between font-semibold">
