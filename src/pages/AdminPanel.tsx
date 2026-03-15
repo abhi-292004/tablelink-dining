@@ -258,15 +258,92 @@ function TableManagement() {
   const tables = MOCK_TABLES;
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
 
+  const downloadQR = (tableNumber: number) => {
+    const svg = document.getElementById(`qr-table-${tableNumber}`);
+    if (!svg) return;
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = 400;
+      canvas.height = 480;
+      if (ctx) {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, 400, 480);
+        ctx.drawImage(img, 50, 30, 300, 300);
+        ctx.fillStyle = '#000000';
+        ctx.font = 'bold 28px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(`Table ${tableNumber}`, 200, 380);
+        ctx.font = '16px sans-serif';
+        ctx.fillStyle = '#666666';
+        ctx.fillText('Scan to view menu & order', 200, 420);
+        ctx.fillText(`${baseUrl}/table/${tableNumber}`, 200, 450);
+      }
+      const link = document.createElement('a');
+      link.download = `table-${tableNumber}-qr.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    };
+    img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
+  };
+
+  const printAllQR = () => {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+    const qrCards = tables.map(t => {
+      const svg = document.getElementById(`qr-table-${t.tableNumber}`);
+      const svgData = svg ? new XMLSerializer().serializeToString(svg) : '';
+      return `<div style="display:inline-block;width:45%;margin:2%;padding:20px;border:2px solid #ccc;border-radius:12px;text-align:center;page-break-inside:avoid;">
+        ${svgData}
+        <h2 style="margin:12px 0 4px;font-size:20px;">Table ${t.tableNumber}</h2>
+        <p style="color:#666;font-size:12px;margin:0;">Scan to view menu & order</p>
+      </div>`;
+    }).join('');
+    printWindow.document.write(`<html><head><title>QR Codes - All Tables</title></head><body style="font-family:sans-serif;padding:20px;">${qrCards}<script>window.print();</script></body></html>`);
+    printWindow.document.close();
+  };
+
   return (
     <>
-      <h2 className="font-display text-2xl font-bold mb-6">Tables & QR Codes</h2>
+      {/* How it works guide */}
+      <div className="bg-primary/5 border border-primary/20 rounded-xl p-5 mb-6">
+        <h3 className="font-display font-bold text-lg mb-3 text-primary">📱 How QR Ordering Works</h3>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {[
+            { step: '1', title: 'Print QR Codes', desc: 'Download or print QR codes below and place them on each table.' },
+            { step: '2', title: 'Customer Scans', desc: 'Customer opens their phone camera and scans the QR code on their table.' },
+            { step: '3', title: 'Browse & Order', desc: 'The menu opens automatically. They add items to cart and place the order.' },
+            { step: '4', title: 'Kitchen Receives', desc: 'Order appears on the Kitchen Dashboard. Staff prepares and updates status.' },
+          ].map(s => (
+            <div key={s.step} className="flex gap-3">
+              <span className="flex-shrink-0 h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">{s.step}</span>
+              <div>
+                <h4 className="font-semibold text-sm">{s.title}</h4>
+                <p className="text-xs text-muted-foreground">{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="font-display text-2xl font-bold">Tables & QR Codes</h2>
+        <Button onClick={printAllQR} variant="outline" className="gap-2">
+          <QrCode className="h-4 w-4" /> Print All QR Codes
+        </Button>
+      </div>
+
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {tables.map(table => (
           <div key={table.id} className="bg-card rounded-xl border p-4 flex flex-col items-center gap-3">
-            <QRCodeSVG value={`${baseUrl}/table/${table.tableNumber}`} size={120} className="rounded" />
+            <QRCodeSVG id={`qr-table-${table.tableNumber}`} value={`${baseUrl}/table/${table.tableNumber}`} size={120} className="rounded" />
             <span className="font-display font-bold">Table {table.tableNumber}</span>
             <code className="text-[10px] text-muted-foreground break-all text-center">/table/{table.tableNumber}</code>
+            <Button size="sm" variant="outline" className="w-full text-xs gap-1.5" onClick={() => downloadQR(table.tableNumber)}>
+              Download QR
+            </Button>
           </div>
         ))}
       </div>
