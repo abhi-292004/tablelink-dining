@@ -38,13 +38,13 @@ export const OrderTracker = ({ tableNumber }: OrderTrackerProps) => {
             {order.items.map((item, idx) => (
               <div key={idx} className="flex justify-between text-xs">
                 <span>{item.menuItem.name} × {item.quantity}</span>
-                <span>${(item.menuItem.price * item.quantity).toFixed(2)}</span>
+                <span>₹{item.menuItem.price * item.quantity}</span>
               </div>
             ))}
           </div>
           <div className="border-t mt-2 pt-2 flex justify-between font-semibold text-sm">
             <span>Total</span>
-            <span>${order.totalAmount.toFixed(2)}</span>
+            <span>₹{order.totalAmount}</span>
           </div>
         </div>
       ))}

@@ -86,7 +86,7 @@ export const CartView = ({ tableNumber, onBack }: CartViewProps) => {
             <div className="flex-1 min-w-0">
               <h4 className="font-semibold text-sm truncate">{menuItem.name}</h4>
               <span className="text-sm text-primary font-display font-bold">
-                ${(menuItem.price * quantity).toFixed(2)}
+                ₹{menuItem.price * quantity}
               </span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -117,11 +117,11 @@ export const CartView = ({ tableNumber, onBack }: CartViewProps) => {
       <div className="sticky bottom-0 border-t bg-card px-4 py-4 space-y-3">
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">Subtotal</span>
-          <span className="font-semibold">${totalAmount.toFixed(2)}</span>
+          <span className="font-semibold">₹{totalAmount}</span>
         </div>
         <div className="flex justify-between font-display font-bold text-lg">
           <span>Total</span>
-          <span className="text-primary">${totalAmount.toFixed(2)}</span>
+          <span className="text-primary">₹{totalAmount}</span>
         </div>
         <Button
           onClick={handlePlaceOrder}

@@ -36,7 +36,7 @@ export const MenuItemCard = ({ item }: MenuItemCardProps) => {
           <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">{item.description}</p>
         </div>
         <div className="flex items-center justify-between mt-1">
-          <span className="font-display font-bold text-primary">${item.price.toFixed(2)}</span>
+          <span className="font-display font-bold text-primary">₹{item.price}</span>
           {item.isAvailable && (
             <div className="flex items-center gap-1">
               {qty > 0 && (
@@ -124,7 +124,7 @@ export const FloatingCartButton = ({ onClick }: FloatingCartButtonProps) => {
           <ShoppingCart className="h-5 w-5" />
           <span>{totalItems} item{totalItems > 1 ? 's' : ''}</span>
         </div>
-        <span>${totalAmount.toFixed(2)}</span>
+        <span>₹{totalAmount}</span>
       </Button>
     </motion.div>
   );

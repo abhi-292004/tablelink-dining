@@ -96,7 +96,7 @@ const AdminPanel = () => {
 
 function DashboardView({ orders, totalRevenue, menuItems }: any) {
   const stats = [
-    { label: 'Total Revenue', value: `$${totalRevenue.toFixed(2)}`, icon: <DollarSign className="h-5 w-5" />, color: 'text-primary' },
+    { label: 'Total Revenue', value: `₹${totalRevenue}`, icon: <DollarSign className="h-5 w-5" />, color: 'text-primary' },
     { label: 'Total Orders', value: orders.length, icon: <ShoppingCart className="h-5 w-5" />, color: 'text-accent' },
     { label: 'Menu Items', value: menuItems.length, icon: <UtensilsCrossed className="h-5 w-5" />, color: 'text-info' },
     { label: 'Pending', value: orders.filter((o: any) => o.status === 'Pending').length, icon: <TrendingUp className="h-5 w-5" />, color: 'text-warning' },
@@ -142,7 +142,7 @@ function MenuManagement({ items, setItems }: { items: MenuItem[]; setItems: (ite
                 <h4 className="font-semibold text-sm truncate">{item.name}</h4>
                 <Badge variant="outline" className="text-[10px]">{CATEGORY_LABELS[item.category]}</Badge>
               </div>
-              <span className="text-sm text-primary font-bold">${item.price.toFixed(2)}</span>
+              <span className="text-sm text-primary font-bold">₹{item.price}</span>
             </div>
             <Switch checked={item.isAvailable} onCheckedChange={() => toggleAvailability(item.id)} />
             <button onClick={() => deleteItem(item.id)} className="text-destructive hover:text-destructive/80 p-1.5">
@@ -227,11 +227,11 @@ function OrderManagement({ orders, updateStatus }: { orders: any[]; updateStatus
               {order.items.map((item: any, idx: number) => (
                 <div key={idx} className="flex justify-between">
                   <span>{item.menuItem.name} × {item.quantity}</span>
-                  <span className="text-muted-foreground">${(item.menuItem.price * item.quantity).toFixed(2)}</span>
+                  <span className="text-muted-foreground">₹{item.menuItem.price * item.quantity}</span>
                 </div>
               ))}
               <div className="border-t pt-1 flex justify-between font-semibold">
-                <span>Total</span><span className="text-primary">${order.totalAmount.toFixed(2)}</span>
+                <span>Total</span><span className="text-primary">₹{order.totalAmount}</span>
               </div>
             </div>
             <div className="flex gap-2">
